@@ -4,8 +4,7 @@ package moskaliuk.project.blog.entity;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @Data
@@ -19,7 +18,7 @@ public class Category {
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "parent_id")
+    @JoinColumn(name = "parent_id", referencedColumnName = "id")
     private Category parent;
 
     @OneToMany(mappedBy = "parent", cascade = CascadeType.REMOVE, orphanRemoval = true)
@@ -27,4 +26,17 @@ public class Category {
 
     @OneToMany(mappedBy = "category")
     private Set<Post> posts;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Category category = (Category) o;
+        return id == category.id && Objects.equals(name, category.name) && Objects.equals(description, category.description) && Objects.equals(children, category.children) && Objects.equals(posts, category.posts);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, description, children, posts);
+    }
 }
