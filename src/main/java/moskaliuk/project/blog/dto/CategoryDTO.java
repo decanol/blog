@@ -1,6 +1,9 @@
 package moskaliuk.project.blog.dto;
 
+import lombok.Builder;
 import lombok.Data;
+
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -12,7 +15,7 @@ public class CategoryDTO {
 
     private Long parent;
 
-    private Set<Long> children;
+    private Set<Long> children = new HashSet<>();
 
-    private Set<Long> posts;
+    private Set<Long> posts = new HashSet<>();
 }

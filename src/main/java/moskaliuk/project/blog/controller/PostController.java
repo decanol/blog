@@ -2,6 +2,7 @@ package moskaliuk.project.blog.controller;
 
 import lombok.RequiredArgsConstructor;
 import moskaliuk.project.blog.dto.PostDTO;
+import moskaliuk.project.blog.dto.PostRequest;
 import moskaliuk.project.blog.entity.Post;
 import moskaliuk.project.blog.services.CategoryService;
 import moskaliuk.project.blog.services.PostService;
@@ -21,17 +22,19 @@ public class PostController {
         return service.findAll(page, size);
     }
     @GetMapping("/{id}")
-    public List<Post> getAll(@PathVariable Long id){
-        return null;
+    public PostDTO getById(@PathVariable Long id){
+        return service.getById(id);
     }
     @PostMapping
-    public Post create(@RequestBody Post post){
-        return null;
+    public PostDTO create(@RequestBody PostRequest postRequest){
+        return service.create(postRequest);
     }
     @PutMapping("{id}")
-    public Post update(@PathVariable Long id, @RequestBody Post post){
-        return null;
+    public PostDTO update(@PathVariable Long id, @RequestBody PostRequest postRequest){
+        return service.update(id, postRequest);
     }
     @DeleteMapping("/{id}")
-    public void delete(Long id) {}
+    public void delete(Long id) {
+        service.delete(id);
+    }
 }

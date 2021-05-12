@@ -1,15 +1,22 @@
 package moskaliuk.project.blog.entity;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 @Data
 @Entity
+@Builder
 @Table(name = "categories")
+@AllArgsConstructor
+@NoArgsConstructor
 public class Category {
     @Id
     private long id;
@@ -22,10 +29,10 @@ public class Category {
     private Category parent;
 
     @OneToMany(mappedBy = "parent", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    private Set<Category> children;
+    private Set<Category> children = new HashSet<>();
 
     @OneToMany(mappedBy = "category")
-    private Set<Post> posts;
+    private Set<Post> posts = new HashSet<>();
 
     @Override
     public boolean equals(Object o) {
